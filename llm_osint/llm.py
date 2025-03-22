@@ -5,7 +5,7 @@ from langchain_deepseek import ChatDeepSeek
 LLMModel = BaseChatModel
 
 default_fast_llm_options = dict(model_name="deepseek-chat", request_timeout=120, max_retries=10, temperature=0.7)
-default_llm_options = dict(model_name="deepseek-chat", request_timeout=120, max_retries=10, temperature=0.7)
+default_llm_options = dict(model_name="deepseek-reasoner", request_timeout=120, max_retries=10, temperature=0.7)
 
 
 def get_default_fast_llm() -> LLMModel:
