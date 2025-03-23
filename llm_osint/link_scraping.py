@@ -31,9 +31,7 @@ from crawl4ai.web_crawler import WebCrawler
 from crawl4ai.chunking_strategy import *
 from crawl4ai.extraction_strategy import *
 from crawl4ai.crawler_strategy import *
-from rich import print
-from rich.console import Console
-from functools import lru_cache
+
 
 def create_crawler():
     crawler = WebCrawler(verbose=True)
