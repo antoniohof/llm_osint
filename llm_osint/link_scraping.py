@@ -7,8 +7,8 @@ from llm_osint import cache_utils
 from crawl4ai.deep_crawling import DFSDeepCrawlStrategy
 import asyncio
 import time
-
-from crawl4ai import CrawlerRunConfig, AsyncWebCrawler, CacheMode
+import os
+from crawl4ai import CrawlerRunConfig, AsyncWebCrawler, CacheMode, WebCrawler
 from crawl4ai.content_scraping_strategy import LXMLWebScrapingStrategy
 from crawl4ai.deep_crawling import BFSDeepCrawlStrategy, BestFirstCrawlingStrategy
 from crawl4ai.deep_crawling.filters import (
@@ -24,61 +24,13 @@ from crawl4ai.deep_crawling.scorers import (
 )
 
 MAX_LINK_LEN = 120
-import os
-import time
-from crawl4ai.types import LLMConfig
-from crawl4ai.web_crawler import WebCrawler
-from crawl4ai.chunking_strategy import *
-from crawl4ai.extraction_strategy import *
-from crawl4ai.crawler_strategy import *
+
 
 
 def create_crawler():
     crawler = WebCrawler(verbose=True)
     crawler.warmup()
     return crawler
-
-async def nn(url : str):
-    async with AsyncWebCrawler() as crawler:
-        # Define a common keyword scorer for all examples
-        keyword_scorer = KeywordRelevanceScorer(
-            keywords=["opencall", "artist call", "residency", "grant", "award"], 
-            weight=1.0
-        )
-        
-        # EXAMPLE 1: BFS WITH MAX PAGES
-        print("\n📊 EXAMPLE 1: BFS STRATEGY WITH MAX PAGES LIMIT")
-        print("  Limit the crawler to a maximum of 5 pages")
-        
-        bfs_config = CrawlerRunConfig(
-            deep_crawl_strategy=BFSDeepCrawlStrategy(
-                max_depth=2, 
-                include_external=False,
-                url_scorer=keyword_scorer,
-                max_pages=5  # Only crawl 5 pages
-            ),
-            scraping_strategy=LXMLWebScrapingStrategy(),
-            verbose=True,
-            cache_mode=CacheMode.BYPASS,
-        )
-        
-        results = await crawler.arun(url=url, config=bfs_config)
-        print("FINISHED CRAWL")
-        print(results)
-        return results.cleaned_html
-
-def scrape_textold(url: str, retries: Optional[int] = 2) -> str:
-    try:
-        print("using NN")
-        return asyncio.run(nn(url))
-        
-    except RuntimeError as e:
-        if retries > 0:
-            return scrape_text(url, retries=retries - 1)
-        else:
-            raise e
-    return resp.text
-
 
 def scrape_text(url: str, retries: Optional[int] = 2) -> str:
     try:
