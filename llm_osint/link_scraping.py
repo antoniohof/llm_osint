@@ -69,7 +69,7 @@ async def nn(url : str):
         print(results)
         return results.cleaned_html
 
-def scrape_text(url: str, retries: Optional[int] = 2) -> str:
+def scrape_textold(url: str, retries: Optional[int] = 2) -> str:
     try:
         print("using NN")
         return asyncio.run(nn(url))
@@ -85,6 +85,7 @@ def scrape_text(url: str, retries: Optional[int] = 2) -> str:
 def scrape_text(url: str, retries: Optional[int] = 2) -> str:
     try:
         print("using NN2")
+        create_crawler()
         return crawler.run(url=url)
         
     except RuntimeError as e:
