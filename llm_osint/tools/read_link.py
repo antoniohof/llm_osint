@@ -19,17 +19,19 @@ If a link begins with "/" prefix it with {link}. Do not include links to generic
 """
 
 PARSE_EXAMPLE_EXTRACTION = """
-For example, for each open call found, list:
+For example, for each open call found, find their respective:
 - name:
+- institution:
 - location:
-- age:
-- job title:
-- projects:
-- hobbies:
-- people they know:
-- common activities:
-- interesting personal links:
-- coworkers:
+- benefits:
+- deadline:
+- date:
+- country:
+- city:
+- application link:
+- related_links:
+- art type:
+- medium:
 """
 
 PARSE_REDUCE_PROMPT = """
