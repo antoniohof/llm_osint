@@ -49,10 +49,10 @@ async def nn(url : str):
             cache_mode=CacheMode.BYPASS,
         )
          
-         results = await crawler.arun(url=url, config=bfs_config)
-         print("FINISHED CRAWL")
-         print(results)
-         return results.cleaned_html
+        results = await crawler.arun(url=url, config=bfs_config)
+        print("FINISHED CRAWL")
+        print(results)
+        return results.cleaned_html
 
 def scrape_text(url: str, retries: Optional[int] = 2) -> str:
     try:
