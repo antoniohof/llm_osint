@@ -24,6 +24,21 @@ from crawl4ai.deep_crawling.scorers import (
 )
 
 MAX_LINK_LEN = 120
+import os
+import time
+from crawl4ai.types import LLMConfig
+from crawl4ai.web_crawler import WebCrawler
+from crawl4ai.chunking_strategy import *
+from crawl4ai.extraction_strategy import *
+from crawl4ai.crawler_strategy import *
+from rich import print
+from rich.console import Console
+from functools import lru_cache
+
+def create_crawler():
+    crawler = WebCrawler(verbose=True)
+    crawler.warmup()
+    return crawler
 
 async def nn(url : str):
     async with AsyncWebCrawler() as crawler:
@@ -65,6 +80,20 @@ def scrape_text(url: str, retries: Optional[int] = 2) -> str:
         else:
             raise e
     return resp.text
+
+
+def scrape_text(url: str, retries: Optional[int] = 2) -> str:
+    try:
+        print("using NN2")
+        return crawler.run(url=url)
+        
+    except RuntimeError as e:
+        if retries > 0:
+            return scrape_text(url, retries=retries - 1)
+        else:
+            raise e
+    return resp.text
+
 
 
 
