@@ -89,7 +89,9 @@ def scrape_text(url: str, retries: Optional[int] = 2) -> str:
         return crawler.run(url=url)
         
     except RuntimeError as e:
+        print(e)
         if retries > 0:
+            print("retry")
             return scrape_text(url, retries=retries - 1)
         else:
             raise e
