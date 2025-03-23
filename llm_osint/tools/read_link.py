@@ -8,9 +8,7 @@ from llm_osint import llm
 
 
 PARSE_MAP_PROMPT = """
-Given this text from {link} extract key unique personal characteristics and links about {name} as a list.
-
-Only include values if they are derived from the original text and relate to {name}.
+Given this text from {link} extract uniques {name} as a list.
 
 If a link begins with "/" prefix it with {link}. Do not include links to generic website pages like login, privacy, or legal.
 
@@ -21,7 +19,7 @@ If a link begins with "/" prefix it with {link}. Do not include links to generic
 """
 
 PARSE_EXAMPLE_EXTRACTION = """
-For example
+For example, for each open call found, list:
 - name:
 - location:
 - age:
@@ -35,7 +33,7 @@ For example
 """
 
 PARSE_REDUCE_PROMPT = """
-Given these chunks of details from {link} about {name}. Merge and duduplicate these into a single list.
+ Merge and duduplicate these into a single list.
 
 If some details disagree, pick the most common one. For links, include at most 10 of the most related links.
 
