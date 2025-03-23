@@ -5,3 +5,4 @@ requests
 bs4
 langchain-community
 langchain_deepseek
+crawl4ai
