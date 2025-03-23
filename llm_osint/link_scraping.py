@@ -57,6 +57,7 @@ async def nn(url : str):
 @cache_utils.cache_func
 def scrape_text(url: str, retries: Optional[int] = 2) -> str:
     try:
+        print("using NN")
         return asyncio.run(nn(url))
         
     except RuntimeError as e:
